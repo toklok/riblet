@@ -1,0 +1,4 @@
+language: minimal
+services:
+  - docker
+script: docker build -t riblet .
