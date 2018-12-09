@@ -1,8 +1,20 @@
-FROM golang:1.11.2 as builder
+# build stage
+FROM golang:1.11.2 as build
+WORKDIR /go/src/riblet
 
-# install dep for package management
-RUN go get -u github.com/golang/dep/cmd/dep
+# install dependencies
+COPY Gopkg.lock Gopkg.toml ./
+RUN go get github.com/golang/dep/cmd/dep; \
+    dep ensure --vendor-only
 
-COPY .
+# copy in source code and run tests
+COPY . .
+RUN go test ./... -cover -race
 
-ENTRYPOINT [ "go", "run", "main.go" ]
+# build
+RUN CGO_ENABLED=0 go build
+
+# app
+FROM scratch
+COPY --from=build /go/src/riblet/riblet ./riblet
+ENTRYPOINT [ "./riblet" ]

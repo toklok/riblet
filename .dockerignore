@@ -1,0 +1,6 @@
+.travis.yml
+LICENSE
+vendor/
+README.md
+.gitignore
+.dockerignore
