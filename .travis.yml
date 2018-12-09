@@ -2,7 +2,7 @@ language: minimal
 services:
   - docker
 script:
-  - docker login -u $DOCKER_USERNAME -p DOCKER_PASSWORD
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - echo $TRAVIS_BRANCH
   - docker build -t jnerney/riblet:latest .
   - if [ "$TRAVIS_BRANCH" = develop ]; then docker push jnerney/riblet && echo $PEM > riblet.pem; fi
