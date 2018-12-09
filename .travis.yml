@@ -3,6 +3,4 @@ services:
   - docker
 script:
   - docker build -t $DOCKER_USERNAME/riblet:latest .
-  - if [ "$TRAVIS_BRANCH" = develop ]; then \
-  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && \
-  - docker push $DOCKER_USERNAME/riblet fi
+  - if [ "$TRAVIS_BRANCH" = develop ]; then docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push $DOCKER_USERNAME/riblet fi
