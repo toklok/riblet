@@ -3,11 +3,11 @@
 set -e
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-docker build -t jnerney/riblet:latest .
+docker build -t $DOCKER_USERNAME/riblet:latest .
 
 if [ "$TRAVIS_BRANCH" = develop ]; then
-    docker push jnerney/riblet
+    docker push $DOCKER_USERNAME/riblet
     echo -e "$PEM" > riblet.pem
     chmod 400 riblet.pem
-    ssh -o StrictHostKeyChecking=no -i "riblet.pem" -t ec2-user@$HOST 'bash -s' < docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker pull jnerney/riblet && docker run jnerney/riblet
+    ssh -o StrictHostKeyChecking=no -i "riblet.pem" -t ec2-user@$HOST 'bash' < docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker pull $DOCKER_USERNAME/riblet && docker run $DOCKER_USERNAME/riblet
 fi
