@@ -9,5 +9,5 @@ if [ "$TRAVIS_BRANCH" = develop ]; then
     docker push jnerney/riblet
     echo "$PEM" > riblet.pem
     chmod 400 riblet.pem
-    ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i "riblet.pem" ec2-user@$HOST 'bash redeploy.sh'
+    ssh -o StrictHostKeyChecking=no -i "riblet.pem" -t ec2-user@$HOST 'bash redeploy.sh'
 fi
