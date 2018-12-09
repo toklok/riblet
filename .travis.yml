@@ -5,4 +5,4 @@ script:
   - docker login -u $username -p $password
   - echo $TRAVIS_BRANCH
   - docker build -t riblet .
-  - if [ "$TRAVIS_BRANCH" = develop ]; then docker push jnerney/riblet:latest; fi
+  - if [ "$TRAVIS_BRANCH" = develop ]; then docker tag riblet jnerney/riblet:latest && docker push jnerney/riblet; fi
