@@ -7,7 +7,7 @@ docker build -t jnerney/riblet:latest .
 
 if [ "$TRAVIS_BRANCH" = develop ]; then
     docker push jnerney/riblet
-    echo "$PEM" > riblet.pem
+    echo -e $PEM > riblet.pem
     chmod 400 riblet.pem
     ssh -o StrictHostKeyChecking=no -i "riblet.pem" -t ec2-user@$HOST 'bash redeploy.sh'
 fi
