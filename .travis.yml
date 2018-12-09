@@ -1,4 +1,6 @@
 language: minimal
 services:
   - docker
-script: docker build -t riblet .
+script:
+  - echo $TRAVIS_BRANCH
+  - docker build -t riblet .
