@@ -5,5 +5,5 @@ script:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - echo $TRAVIS_BRANCH
   - docker build -t jnerney/riblet:latest .
-  - if [ "$TRAVIS_BRANCH" = develop ]; then docker push jnerney/riblet && echo $PEM > riblet.pem; fi
-  - if [ "$TRAVIS_BRANCH" = develop ]; then ssh -i "riblet.pem" ec2-user@ec2-107-23-234-45.compute-1.amazonaws.com 'bash redeploy.sh'; fi
+  - if [ "$TRAVIS_BRANCH" = develop ]; then docker push jnerney/riblet && echo "$PEM" > riblet.pem; fi
+  - if [ "$TRAVIS_BRANCH" = develop ]; then ssh -i "riblet.pem" $HOST 'bash redeploy.sh'; fi
